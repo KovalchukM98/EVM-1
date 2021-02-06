@@ -2,7 +2,7 @@ FLAGS += -Wall -Werror --std=c++17
 USER_DIR_S = build
 EXECUTABLE = bin/program
 
-.PHONY: all clean
+.PHONY: all clean start
 
 $(EXECUTABLE): $(USER_DIR_S)/main.o $(USER_DIR_S)/libsc.a
 	g++ $(FLAGS) -o $@ $^ -Lbuild -lsc

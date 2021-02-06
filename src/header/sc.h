@@ -9,6 +9,7 @@
 const int memSize = 100;
 static int arr[memSize];
 static int registr;
+int error_flag = 0;
 
 int sc_regInit(void)
 {
@@ -77,8 +78,25 @@ int sc_memoryLoad(const char* filename)
     return 0;
 }
 
-int sc_commandEncode(int command, int operand, int* value)
+int sc_commandEncode(int command, int operand, int *value)
 {
+	if ((operand > 127 || operand < 0) && (command > 127 || operand < 0 )) {
+        return 1;
+	}
     
-        return 0;
+	*value = (command << 7) | operand;
+
+	return 0;
+}
+
+int sc_commandDecode (int value, int * command, int * operand)
+{
+	if ((value >> 14) != 0) {
+		error_flag = 1;
+        return 1;
+	}
+
+	*command = value >> 7;
+	*operand = value & 0x7F;
+	return 0;
 }
