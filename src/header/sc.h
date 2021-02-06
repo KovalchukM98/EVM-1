@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
+#include <bitset>
+#include <climits>
 
 #define MEMORY_BORDER_ERROR 1;
 
@@ -85,18 +87,24 @@ int sc_commandEncode(int command, int operand, int *value)
 	}
     
 	*value = (command << 7) | operand;
-
+    std::cout << "encode:\nval(10)= " << *value << "\nval(2)= ";
+    for(int i = 14; i >= 0; --i){
+        std::cout << ((*value >> i) & 1) << " ";
+    }
 	return 0;
 }
 
 int sc_commandDecode (int value, int * command, int * operand)
 {
-	if ((value >> 14) != 0) {
+	if((value >> 14) != 0) {
 		error_flag = 1;
+        std::cout << ((value >> 14) & 1) << " - Не является началом команды\n";
         return 1;
 	}
+    
+    *command = value >> 14;
+	*operand = value >> 7;
+    std::cout << "Com= " << *command << "Oper= " << *operand << "\n";
 
-	*command = value >> 7;
-	*operand = value & 0x7F;
 	return 0;
 }

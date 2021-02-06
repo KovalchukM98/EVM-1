@@ -19,6 +19,11 @@ $(USER_DIR_S)/libsc.a: $(USER_DIR_S)/sc.o
 start:
 	./bin/program
 
+remake:
+	make clean
+	make
+	make start
+
 clean:
 	rm -rf $(USER_DIR_S)/*.o
 	rm -rf bin/*
