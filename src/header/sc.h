@@ -101,10 +101,16 @@ int sc_commandDecode (int value, int * command, int * operand)
         std::cout << ((value >> 14) & 1) << " - Не является началом команды\n";
         return 1;
 	}
-    
-    *command = value >> 14;
-	*operand = value >> 7;
-    std::cout << "Com= " << *command << "Oper= " << *operand << "\n";
-
+    //std::cout << "213";
+    *command = value >> 7;
+	*operand = value & 127;
+    std::cout << "Com= ";
+    for(int i = 6; i >= 0; --i){
+        std::cout << ((*command >> i) & 1) << " ";
+    }
+    std::cout << "\nOper= ";
+    for(int i = 6; i >= 0; --i){
+        std::cout << ((*operand >> i) & 1) << " ";
+    }
 	return 0;
 }
