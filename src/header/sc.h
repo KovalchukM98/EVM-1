@@ -104,11 +104,12 @@ int sc_commandDecode (int value, int * command, int * operand)
     //std::cout << "213";
     *command = value >> 7;
 	*operand = value & 127;
-    std::cout << "Com= ";
+    std::cout << "sc_flag= " << ((value >> 14) & 1);
+    std::cout << "\nCommand(2)= ";
     for(int i = 6; i >= 0; --i){
         std::cout << ((*command >> i) & 1) << " ";
     }
-    std::cout << "\nOper= ";
+    std::cout << "\nOperand(2)= ";
     for(int i = 6; i >= 0; --i){
         std::cout << ((*operand >> i) & 1) << " ";
     }

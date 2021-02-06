@@ -17,7 +17,7 @@ int main()
     sc_memoryLoad(filename);
     sc_memoryGet(10, arr);
     sc_commandEncode(51, 89, sc_command);
-    std::cout << "\nSc:" << *sc_command << "\n";
-    sc_commandDecode(6617, command, operand);
+    std::cout << "\nsc_command(10)= " << *sc_command << "\n";
+    sc_commandDecode(*sc_command, command, operand);
     return 0;
 }
