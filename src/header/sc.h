@@ -21,15 +21,26 @@ int sc_regInit(void)
 
 int sc_regSet(int flag_num, int value)
 {
+    std::cout << "\nRegistr before set:";
+    for(int i = 32; i >= 0; --i){
+        std::cout << ((registr >> i) & 1) << " ";
+    }
     if(value > 1 || value < 0) return 1;
-    registr |= value << (flag_num-1);
+    registr |= value << (flag_num - 1);
+    std::cout << "\nRegistr under set:";
+    for(int i = 32; i > 0; --i){
+        std::cout << ((registr >> i) & 1) << " ";
+    }
     return 0;
 }
 
 int sc_regGet(int flag_num, int* value){
     if(flag_num > 1 || flag_num < 0) return 1;
-    int flag = (registr >> (flag_num - 1)) & 1;
-    value = &flag;
+    int *flag = new int;
+    *flag = (registr >> (flag_num - 1)) & 1;
+    std::cout << "\nFlag:" << *flag;
+    value = flag;
+    std::cout << "\nValue:" << *value;
     return 0;
 }
 
