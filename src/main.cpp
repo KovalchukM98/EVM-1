@@ -29,6 +29,10 @@ int main()
     mt_setfgcolor(GREEN);
     mt_setbgcolor(BLUE);
     std::cout << "Check string.\E[00m\n";
+    int col = 0, row = 0;
+    mt_getscreensize(row, col);
+    mt_clrscr();
+    mt_gotoXY(2, 2);
     
     return 0;
 }

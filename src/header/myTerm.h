@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <stdio.h>
+#include <sys/ioctl.h>
+
 /*
     clear_screen=\E[H\E[J
     cursor_address=\E[%i%p1%d;%p2%dH
@@ -44,10 +46,24 @@ int mt_clrscr()
     return 0;
 }
 
-// int mt_gotoXY(int x, int y)
-// {
-    
-// }
+int mt_gotoXY(int row, int column)
+{
+    if(printf("\E[0%d;%dH", row, column) < 0) {
+        return -1;
+    }
+    return 0;
+}
+
+int mt_getscreensize(int &rows, int &columns)
+{
+    winsize ws;
+    if(!ioctl(1, TIOCGWINSZ, &ws)){
+        printf ("Screensize\n");
+        printf ("Rows: %d\nColumns: %d\n", ws.ws_row, ws.ws_col);
+        return 0;
+    }
+    return -1;
+}
 
 int mt_setfgcolor(enum colors fg)
 {
