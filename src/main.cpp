@@ -1,4 +1,5 @@
 #include "header/sc.h"
+#include "header/myTerm.h"
 
 int main()
 {
@@ -23,5 +24,11 @@ int main()
     sc_regSet(1,1);
     int *reg_value = new int;
     sc_regGet(1,reg_value);
+    mt_clrscr();
+    escape_commands();
+    mt_setfgcolor(GREEN);
+    mt_setbgcolor(BLUE);
+    std::cout << "Check string.\E[00m\n";
+    
     return 0;
 }

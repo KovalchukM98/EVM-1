@@ -16,6 +16,12 @@ $(USER_DIR_S)/sc.o: src/header/sc.cpp
 $(USER_DIR_S)/libsc.a: $(USER_DIR_S)/sc.o
 	ar rc $(USER_DIR_S)/libsc.a $(USER_DIR_S)/sc.o
 
+$(USER_DIR_S)/myTerm.o: src/header/myTerm.cpp
+	g++ $(FLAGS) -c $^ -o $@
+
+$(USER_DIR_S)/libmyTerm.a: $(USER_DIR_S)/myTerm.o
+	ar rc $(USER_DIR_S)/libmyTerm.a $(USER_DIR_S)/myTerm.o
+
 start:
 	./bin/program
 
