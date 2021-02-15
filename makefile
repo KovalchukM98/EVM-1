@@ -22,6 +22,12 @@ $(USER_DIR_S)/myTerm.o: src/header/myTerm.cpp
 $(USER_DIR_S)/libmyTerm.a: $(USER_DIR_S)/myTerm.o
 	ar rc $(USER_DIR_S)/libmyTerm.a $(USER_DIR_S)/myTerm.o
 
+$(USER_DIR_S)/myBigChars.o: src/header/myBigChars.cpp
+	g++ $(FLAGS) -c $^ -o $@
+
+$(USER_DIR_S)/libmyBigChars.a: $(USER_DIR_S)/myBigChars.o
+	ar rc $(USER_DIR_S)/libmyBigChars.a $(USER_DIR_S)/myBigChars.o
+	
 start:
 	./bin/program
 
@@ -29,6 +35,9 @@ remake:
 	make clean
 	make
 	make start
+
+show_my_term:
+	./myTerm.sh
 
 clean:
 	rm -rf $(USER_DIR_S)/*.o
