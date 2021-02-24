@@ -25,17 +25,17 @@ enum colors {
 
 void escape_commands()
 {
-    //std::cout << "\E[H\E[J";
-    std::cout << "\E[05;10H";//address
-    std::cout << "\E[40m\E[31mВлад\E[00m";
-    std::cout << "\E[06;8H";//address
-    std::cout << "\E[47m\E[32mИП-912";
-    std::cout << "\E[010;1H";//address
-    std::cout << "\E[00m\n";
-    std::cout << "Clear? Y/N\n";
+    //printf("\E[H\E[J";
+    printf("\E[05;10H");//address
+    printf("\E[40m\E[31mВлад\E[00m");
+    printf("\E[06;8H");//address
+    printf("\E[47m\E[32mИП-912");
+    printf("\E[010;1H");//address
+    printf("\E[00m\n");
+    printf("Clear? Y/N\n");
     char c;
     std::cin >> c;
-    if(c == 'Y') std::cout << "\E[H\E[J";
+    if(c == 'Y') printf("\E[H\E[J");
 }
 
 int mt_clrscr()

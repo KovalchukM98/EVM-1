@@ -24,9 +24,9 @@
 #define SMACS "\E(0"
 #define RMACS "\E(B"
 
-#define BLACK_CHAR 'a'
+#define BLACK_CHAR "a"
 
-int bc_printA (char * str){
+int bc_printA (const char * str){
 	printf(SMACS);
     if(printf("%s", str) < 0) {
         return -1;
@@ -35,14 +35,14 @@ int bc_printA (char * str){
 	return 0;
 }
 
-void temp()
-{
-    printf("\E(0%c\E(B", BLACK_CHAR);
-    for(char ch = 'a'; ch < 'z'; ch++) printf("\E(0%c\E(B", ch);
-    printf("\n");
-    for(char ch = 'A'; ch < 'Z'; ch++) printf("\E(0%c\E(B", ch);
-    printf("\n");
-}
+// void temp()
+// {
+//     printf("\E(0%c\E(B", BLACK_CHAR);
+//     for(char ch = 'a'; ch < 'z'; ch++) printf("\E(0%c\E(B", ch);
+//     printf("\n");
+//     for(char ch = 'A'; ch < 'Z'; ch++) printf("\E(0%c\E(B", ch);
+//     printf("\n");
+// }
 
 int bc_box(int x1, int y1, int x2, int y2){
 	printf(SMACS);
@@ -70,6 +70,13 @@ int bc_box(int x1, int y1, int x2, int y2){
 }
 
 int bc_printbigchar (int [2], int x, int y, enum colors, enum colors) {
+	int value;
+	for (int j = 0; j < 8; ++j) {
+        mt_gotoXY(x, (y + j));
+        for (int i = 0; i < 8; ++i) {
+            bc_printA((value == 1) ? (BLACK_CHAR) : (" "));
+        }
+    }
 	return 0;
 }
 

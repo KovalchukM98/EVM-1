@@ -40,6 +40,11 @@ int main()
     strcpy(ch, "a");
     bc_printA(ch);
     printf("\n");
-    temp();
+    //temp();
+    int bigchar[2];
+    bigchar[0] = 0x10101010;
+    bigchar[1] = 0x101010FF;
+    mt_clrscr();
+    bc_printbigchar(bigchar, 1, 1, BLACK, BLACK);
     return 0;
 }
