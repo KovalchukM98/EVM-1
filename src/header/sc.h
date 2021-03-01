@@ -2,9 +2,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <iostream>
-#include <bitset>
-#include <climits>
 
 #define MEMORY_BORDER_ERROR 1;
 #define WRONG_COMMAND 2;
@@ -32,16 +29,16 @@ int sc_regInit(void)
 
 int sc_regSet(int flag_num, int value)
 {
-    std::cout << "\nRegistr before set:";
-    for(int i = 32; i >= 0; --i){
-        std::cout << ((registr >> i) & 1) << " ";
-    }
+    // std::cout << "\nRegistr before set:";
+    // for(int i = 32; i >= 0; --i){
+    //     std::cout << ((registr >> i) & 1) << " ";
+    // }
     if(value > 1 || value < 0) return 1;
     registr |= value << (flag_num - 1);
-    std::cout << "\nRegistr under set:";
-    for(int i = 32; i > 0; --i){
-        std::cout << ((registr >> i) & 1) << " ";
-    }
+    // std::cout << "\nRegistr under set:";
+    // for(int i = 32; i > 0; --i){
+    //     std::cout << ((registr >> i) & 1) << " ";
+    // }
     return 0;
 }
 
@@ -49,9 +46,9 @@ int sc_regGet(int flag_num, int* value){
     if(flag_num > 1 || flag_num < 0) return 1;
     int *flag = new int;
     *flag = (registr >> (flag_num - 1)) & 1;
-    std::cout << "\nFlag:" << *flag;
+    //std::cout << "\nFlag:" << *flag;
     value = flag;
-    std::cout << "\nValue:" << *value;
+    //std::cout << "\nValue:" << *value;
     return 0;
 }
 
@@ -68,7 +65,7 @@ int sc_memorySet(int address, int value)
     if(address >= memSize){
         int error_flag = MEMORY_BORDER_ERROR;
         sc_regSet(error_flag,1);
-        std::cout << "memory size error(set)\n\n";
+        //std::cout << "memory size error(set)\n\n";
         return 1;
     }
     arr[address] = value;
@@ -80,11 +77,11 @@ int sc_memoryGet(int address, int* value)
     if(address >= memSize){
         int error_flag = MEMORY_BORDER_ERROR;
         sc_regSet(error_flag,1);
-        std::cout << "memory size error(get)\n\n";
+        //std::cout << "memory size error(get)\n\n";
         return 1;
     }
     *value = (arr[address]);
-    std::cout << "Value: " << *value << "\n";
+    //std::cout << "Value: " << *value << "\n";
     return 0;
 }
 
@@ -113,10 +110,10 @@ int sc_commandEncode(int command, int operand, int *value)
 	}
     
 	*value = (command << 7) | operand;
-    std::cout << "encode:\nval(10)= " << *value << "\nval(2)= ";
-    for(int i = 14; i >= 0; --i){
-        std::cout << ((*value >> i) & 1) << " ";
-    }
+    // std::cout << "encode:\nval(10)= " << *value << "\nval(2)= ";
+    // for(int i = 14; i >= 0; --i){
+    //     std::cout << ((*value >> i) & 1) << " ";
+    // }
 	return 0;
 }
 
@@ -126,19 +123,19 @@ int sc_commandDecode (int value, int * command, int * operand)
 	if((value >> 14) != 0) {
 		int error_flag = WRONG_COMMAND;
         sc_regSet(error_flag,1);
-        std::cout << ((value >> 14) & 1) << " - Не является началом команды\n";
+        //std::cout << ((value >> 14) & 1) << " - Не является началом команды\n";
         return 1;
 	}
     *command = value >> 7;
 	*operand = value & 127;
-    std::cout << "sc_flag= " << ((value >> 14) & 1);
-    std::cout << "\nCommand(2)= ";
-    for(int i = 6; i >= 0; --i){
-        std::cout << ((*command >> i) & 1) << " ";
-    }
-    std::cout << "\nOperand(2)= ";
-    for(int i = 6; i >= 0; --i){
-        std::cout << ((*operand >> i) & 1) << " ";
-    }
+    // std::cout << "sc_flag= " << ((value >> 14) & 1);
+    // std::cout << "\nCommand(2)= ";
+    // for(int i = 6; i >= 0; --i){
+    //     std::cout << ((*command >> i) & 1) << " ";
+    // }
+    // std::cout << "\nOperand(2)= ";
+    // for(int i = 6; i >= 0; --i){
+    //     std::cout << ((*operand >> i) & 1) << " ";
+    // }
 	return 0;
 }
