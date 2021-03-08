@@ -2,6 +2,7 @@
 #include "header/myTerm.h"
 #include "header/myBigChars.h"
 #include "header/print.h"
+#include "header/meReadKey.h"
 //#include <ncurses.h>
 
 int main()
