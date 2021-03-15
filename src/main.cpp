@@ -56,5 +56,13 @@ int main()
     printf("Getbigcharpos:\n%d\n", *value);
     bc_getbigcharpos(bcintplus, 0, 1, value);
     printf("%d\n", *value);
+    // enum keys *key = new enum keys;
+    enum keys key;
+    while(key != QUIT) rk_readkey(&key);
+		
+    int i = rk_mytermsave();
+    printf("%d", i);
+    i = rk_mytermrestore();
+    printf("%d", i);
     return 0;
 }
