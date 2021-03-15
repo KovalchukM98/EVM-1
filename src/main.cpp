@@ -2,11 +2,13 @@
 #include "header/myTerm.h"
 #include "header/myBigChars.h"
 #include "header/print.h"
-#include "header/meReadKey.h"
+// #include "header/meReadKey.h"
+#include "header/mySig.h"
 //#include <ncurses.h>
 
 int main()
 {
+    set_reset_sig();
     // int *arr = sc_memoryInit();
     // int *command = new int;
     // int *sc_command = new int;
@@ -36,7 +38,7 @@ int main()
     // int col = 0, row = 0;
     // mt_getscreensize(row, col);
     // mt_gotoXY(10, 10);
-    mt_clrscr();
+    /*mt_clrscr();
     bc_box(1, 5, 8, 8);
     char* ch = new char[3];
     strcpy(ch, "a");
@@ -55,6 +57,11 @@ int main()
     mt_gotoXY(28,1);
     printf("Getbigcharpos:\n%d\n", *value);
     bc_getbigcharpos(bcintplus, 0, 1, value);
-    printf("%d\n", *value);
+    printf("%d\n", *value);*/
+    sc_regSet(timer_ignore_flag, 1);
+    //set_my_alarm(1);
+    sleep(60);  //прерывается сигналом
+    sleep(10);
+    printf("сплю\n");
     return 0;
 }

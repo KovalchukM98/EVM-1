@@ -10,6 +10,7 @@ const int memSize = 100;
 static int arr[memSize];
 static int registr;
 int error_flag = 0;
+int timer_ignore_flag = 1;
 
 
 bool isCommand(int command) {
@@ -34,7 +35,7 @@ int sc_regSet(int flag_num, int value)
     //     std::cout << ((registr >> i) & 1) << " ";
     // }
     if(value > 1 || value < 0) return 1;
-    registr |= value << (flag_num - 1);
+    registr |= value << flag_num;
     // std::cout << "\nRegistr under set:";
     // for(int i = 32; i > 0; --i){
     //     std::cout << ((registr >> i) & 1) << " ";
@@ -45,7 +46,7 @@ int sc_regSet(int flag_num, int value)
 int sc_regGet(int flag_num, int* value){
     if(flag_num > 1 || flag_num < 0) return 1;
     int *flag = new int;
-    *flag = (registr >> (flag_num - 1)) & 1;
+    *flag = (registr >> flag_num) & 1;
     //std::cout << "\nFlag:" << *flag;
     value = flag;
     //std::cout << "\nValue:" << *value;
