@@ -2,7 +2,7 @@
 #include "header/myTerm.h"
 #include "header/myBigChars.h"
 #include "header/print.h"
-// #include "header/meReadKey.h"
+#include "header/meReadKey.h"
 #include "header/mySig.h"
 //#include <ncurses.h>
 
@@ -38,30 +38,74 @@ int main()
     // int col = 0, row = 0;
     // mt_getscreensize(row, col);
     // mt_gotoXY(10, 10);
-    /*mt_clrscr();
-    bc_box(1, 5, 8, 8);
-    char* ch = new char[3];
-    strcpy(ch, "a");
-    bc_printA(ch);
-    printf("\n");
-    //temp();
-    mt_clrscr();
-    mt_gotoXY(1, 1);
-    printAllBox();
-    bc_printbigchar(bcintplus, 14, 2, BLACK, RED);
-    for(int i = 10; i < 35; i+= 8) bc_printbigchar(bcint0, 14, i, BLACK, RED);
-    bc_setbigcharpos(bcintplus, 0, 0, 1);
-    int *value = new int;
-    bc_getbigcharpos(bcintplus, 0, 0, value);
-    bc_printbigchar(bcintplus, 14, 2, BLACK, RED);
-    mt_gotoXY(28,1);
-    printf("Getbigcharpos:\n%d\n", *value);
-    bc_getbigcharpos(bcintplus, 0, 1, value);
-    printf("%d\n", *value);*/
-    sc_regSet(timer_ignore_flag, 1);
-    //set_my_alarm(1);
-    sleep(60);  //прерывается сигналом
-    sleep(10);
-    printf("сплю\n");
+    // mt_clrscr();
+    // bc_box(1, 5, 8, 8);
+    // char* ch = new char[3];
+    // strcpy(ch, "a");
+    // bc_printA(ch);
+    // printf("\n");
+    // //temp();
+    // mt_clrscr();
+    // mt_gotoXY(1, 1);
+    //printAllBox();
+    
+    // bc_setbigcharpos(bcintplus, 0, 0, 1);
+    // int *value = new int;
+    // bc_getbigcharpos(bcintplus, 0, 0, value);
+    // bc_printbigchar(bcintplus, 14, 2, BLACK, RED);
+    // mt_gotoXY(28,1);
+    // printf("Getbigcharpos:\n%d\n", *value);
+    // bc_getbigcharpos(bcintplus, 0, 1, value);
+    // printf("%d\n", *value);
+    // enum keys *key = new enum keys;
+    set_my_alarm(1);
+    enum keys key;
+    row = 0;
+    column = 0;
+    int x = 1, x1 = 1;
+    pa_resetTerm();
+    while (key != QUIT) {
+		  rk_readkey(&key);
+      switch(key) {
+        case F5:
+          pa_memset();
+          break;
+        case F6:
+          printf("f6");
+          break;
+        case KEY_UP:
+          pa_moveUp();
+          break;
+        case KEY_DOWN:
+          pa_moveDown();
+          break;
+        case KEY_LEFT:
+          pa_moveLeft();
+          break;
+        case KEY_RIGHT:
+          pa_moveRight();
+          break;
+        case SAVE:
+          x1 = rk_mytermsave();
+          if(x1 != 1) printf("save");
+          break;
+        case LOAD:
+      		x = rk_mytermrestore();
+          if(x != 1) printf("load");
+          break;
+        case KEY_i:
+          raise(SIGUSR1);
+          break;
+        case QUIT:
+          printf("\n\n");
+          return 0;
+          break;
+      }
+    }
+    // sc_regSet(timer_ignore_flag, 1);
+    
+    // sleep(60);  //прерывается сигналом
+    // sleep(10);
+    // printf("сплю\n");
     return 0;
 }

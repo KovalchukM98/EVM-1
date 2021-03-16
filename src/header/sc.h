@@ -9,6 +9,7 @@
 const int memSize = 100;
 static int arr[memSize];
 static int registr;
+static int instruction_counter = 0;
 int error_flag = 0;
 int timer_ignore_flag = 1;
 
@@ -58,6 +59,7 @@ int *sc_memoryInit()
     for(int i = 0; i < memSize; ++i){
         arr[i] = 0;
     }
+    instruction_counter = 0;
     return arr;
 }
 

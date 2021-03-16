@@ -4,7 +4,9 @@
 #include "myBigChars.h"
 #include <stdio.h>
 
-static int bcint0 [2] = {1717992960, 8283750};
+int row, column , ind;
+
+// static int bcint0 [2] = {1717992960, 8283750};
 // static int bcint1 [2] = {471341056, 3938328};
 // static int bcint2 [2] = {538983424, 3935292};
 // static int bcint3 [2] = {2120252928, 8282238};
@@ -20,7 +22,7 @@ static int bcint0 [2] = {1717992960, 8283750};
 // static int bcintD [2] = {1111637504, 4080194};
 // static int bcintE [2] = {2114092544, 8258050};
 // static int bcintF [2] = {33717760, 131646};
-static int bcintplus [2] = {2115508224, 1579134};
+// static int bcintplus [2] = {2115508224, 1579134};
 // static int bcintm [2] = {2113929216, 126};
 
 int printBoxMemory()
@@ -46,6 +48,8 @@ int printBoxInstructionCounter()
 	bc_box(4, 61 + 1, 3, 22);
 	mt_gotoXY(4, 63);
 	printf(" instructionCounter ");
+	mt_gotoXY(5, 70);
+	printf("+%.4d", instruction_counter);
 	mt_gotoXY(13, 1);
 	return 0;
 }
@@ -99,11 +103,53 @@ int pa_printKeys()
 	return 0;
 }
 
+int pa_printMemory()
+{
+	for (int i = 0; i < 10; i++) {
+		mt_gotoXY(2 + i, 2);
+		for (int j = 0; j < 10; j++) {
+			if (j != 0)
+				printf(" ");
+			if (arr[i * 10 + j] < 0) {
+				printf("-%.4d", -arr[i * 10 + j]);
+			} else {
+				printf("+%.4d", arr[i * 10 + j]);
+			}
+		}
+	}
+	mt_setbgcolor(CYAN);
+	mt_gotoXY(2 + row, 2 + column*6);
+		if (arr[row * 10 + column] < 0) {
+			printf("-%.4d", -arr[row * 10 + column]);
+		} else {
+			printf("+%.4d", arr[row * 10 + column]);
+		}
+	printf("\E[0m");
+	return 0;
+}
+
 int printAllBox()
 {
 	mt_clrscr();
 
 	printBoxMemory();
+	pa_printMemory();
+	printBoxAccumulator();
+	printBoxInstructionCounter();
+	printBoxOperation();
+	printBoxFlags();
+	printBoxCase();
+	pa_printKeys();
+	
+	mt_gotoXY(24, 1);
+	return 0;
+}
+int pa_resetTerm()
+{
+	mt_clrscr();
+	printBoxMemory();
+	printf("\E[00m\n");
+	pa_printMemory();
 	printBoxAccumulator();
 	printBoxInstructionCounter();
 	printBoxOperation();
@@ -111,5 +157,52 @@ int printAllBox()
 	printBoxCase();
 	pa_printKeys();
 	mt_gotoXY(24, 1);
+	printf("Input\\Output: ");
+	mt_gotoXY(24, 14);
+
+	mt_gotoXY(25, 1);
+	for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 83; i++) {
+			printf(" ");
+		}
+		printf("\n");
+	}
+
+	mt_gotoXY(33, 1);
+	fflush(stdout);
+	
 	return 0;
+}
+
+void pa_moveUp()
+{
+	if(row > 0) row--;
+	pa_resetTerm();
+}
+
+void pa_moveDown()
+{
+	if(row < 10) row++;
+	pa_resetTerm();
+}
+
+void pa_moveLeft()
+{
+	if(column > 0) column--;
+	pa_resetTerm();
+}
+
+void pa_moveRight()
+{
+	if(column < 10) column++;
+	pa_resetTerm();
+}
+
+void pa_memset()
+{
+	int setter = 0;
+	if(row == 0) setter = column;
+	else setter = column + (10 * row);
+	sc_memorySet(setter, 1);
+	pa_resetTerm();
 }
