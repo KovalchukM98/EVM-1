@@ -58,11 +58,10 @@ int main()
     // bc_getbigcharpos(bcintplus, 0, 1, value);
     // printf("%d\n", *value);
     // enum keys *key = new enum keys;
-    set_my_alarm(1);
+    // set_my_alarm(1);
     enum keys key;
     row = 0;
     column = 0;
-    int x = 1, x1 = 1;
     pa_resetTerm();
     while (key != QUIT) {
 		  rk_readkey(&key);
@@ -86,12 +85,13 @@ int main()
           pa_moveRight();
           break;
         case SAVE:
-          x1 = rk_mytermsave();
-          if(x1 != 1) printf("save");
+          sc_memorySave(filename);
           break;
         case LOAD:
-      		x = rk_mytermrestore();
-          if(x != 1) printf("load");
+      		sc_memoryLoad(filename);
+          break;
+        case KEY_1:
+      		pa_press1();
           break;
         case KEY_i:
           raise(SIGUSR1);

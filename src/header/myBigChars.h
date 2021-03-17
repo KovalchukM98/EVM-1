@@ -11,7 +11,7 @@
     exit_alt_charset_mode=^O
     acs_chars=++\054\054--..00__``aaffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz{{||}c~~
 */
-#define BOXCHAR_REC 'a'
+
 #define LINE_HORIZONTAL "q"
 #define LINE_VERTICAL "x"
 

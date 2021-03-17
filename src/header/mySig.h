@@ -1,6 +1,7 @@
 #pragma once
 
 #include "myTerm.h"
+#include "print.h"
 #include <stdio.h>
 #include "sc.h"
 #include <unistd.h>
@@ -25,9 +26,11 @@ struct timeval {
 };*/
 
 void reset_sig_handler(int signo){
-	printf("типо сделали сброс настроек\n");
+	
 	sc_memoryInit();
 	sc_regInit();
+	row = column = ind = 0;
+	pa_resetTerm();
 }
 
 void sig_handler(int signo){

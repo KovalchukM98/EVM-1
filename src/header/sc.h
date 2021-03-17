@@ -5,6 +5,7 @@
 
 #define MEMORY_BORDER_ERROR 1;
 #define WRONG_COMMAND 2;
+const char *filename = "file.txt";
 
 const int memSize = 100;
 static int arr[memSize];

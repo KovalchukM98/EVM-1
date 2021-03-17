@@ -28,7 +28,8 @@ enum keys{
 	QUIT,
 	LOAD,
 	SAVE,
-	KEY_i
+	KEY_i,
+	KEY_1
 };
 
 int rk_mytermsave(void) // запись в termios структуру
@@ -117,6 +118,8 @@ int rk_readkey (enum keys *key){
 	} else if(c[0] == 'i'){
 		*key = KEY_i;
 		
+	} else if (c[0] == '1') {
+		*key = KEY_1;
 	}
 	rk_mytermregime(0, 0, 1, 1, 1);
 	free(c);
