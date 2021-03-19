@@ -1,6 +1,7 @@
 #pragma once
 
 #include "myTerm.h"
+#include "print.h"
 #include <stdio.h>
 #include "sc.h"
 #include <unistd.h>
@@ -25,17 +26,23 @@ struct timeval {
 };*/
 
 void reset_sig_handler(int signo){
-	printf("типо сделали сброс настроек\n");
+	
+	sc_memoryInit();
+	sc_regInit();
+	row = column = ind = 0;
+	pa_resetTerm();
 }
 
 void sig_handler(int signo){
 	int flag;
 	sc_regGet(timer_ignore_flag, &flag);
 	if(flag == 0) {
-		printf("таймер отключен\n"); //ничего не должно происходить
+		//printf("таймер отключен\n"); //ничего не должно происходить
 		return;
 	}
-	printf("таймер работает\n");  // значение регистра instructionCounter увеличивалось на 1
+	instruction_counter++;
+	pa_resetTerm();
+	//printf("таймер работает\n");  // значение регистра instructionCounter увеличивалось на 1
 }
 
 unsigned int set_my_alarm(unsigned int sec){
@@ -50,10 +57,12 @@ unsigned int set_my_alarm(unsigned int sec){
 	/* Запускаем таймер */
 	setitimer (ITIMER_REAL, &nval, &oval);
 	pause();
+	return 0;
 }
 
 void set_reset_sig(){
 	signal (SIGUSR1, reset_sig_handler);
+
 }
 
 //int setitimer(int which, const struct itimerval *value, struct itimerval *ovalue);
