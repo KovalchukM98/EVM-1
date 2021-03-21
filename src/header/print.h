@@ -126,6 +126,18 @@ int printBoxFlags()
 	mt_gotoXY(10, 69);
 	printf(" Flags ");
 	mt_gotoXY(13, 1);
+	int reg_p, reg_o, reg_m, reg_t, reg_e;
+
+	sc_regGet(P, &reg_p);
+	sc_regGet(O, &reg_o);
+	sc_regGet(MEMORY_BORDER_ERROR, &reg_m);
+	sc_regGet(T, &reg_t);
+	sc_regGet(WRONG_COMMAND, &reg_e);
+
+	mt_gotoXY(11, 64);
+	//printf("P-%d O-%d M-%d T-%d E-%d", reg_p, reg_o, reg_m, reg_t, reg_e);
+	printf("P-%d O-%d M-%d T-%d E-%d", 0, 0, 0, 0, 0);
+
 	return 0;
 }
 
@@ -255,7 +267,7 @@ void pa_moveUp()
 {
 	if(row > 0) {
 		row--;
-		instruction_counter -= 10;
+		//instruction_counter -= 10;
 	}
 	pa_resetTerm();
 }
@@ -264,7 +276,7 @@ void pa_moveDown()
 {
 	if(row < 9) {
 		row++;
-		instruction_counter += 10;
+		//instruction_counter += 10;
 	}
 	pa_resetTerm();
 }
@@ -273,7 +285,7 @@ void pa_moveLeft()
 {
 	if(column > 0) {
 		column--;
-		instruction_counter--;
+		//instruction_counter--;
 	}
 	pa_resetTerm();
 }
@@ -282,20 +294,33 @@ void pa_moveRight()
 {
 	if(column < 9) {
 		column++;
-		instruction_counter++;
+		//instruction_counter++;
 	}
 	pa_resetTerm();
 }
 
 void pa_memset()
 {
-	int setter = 0;
-	setter = column + (10 * row);
-	int value = 0;
-	sc_memoryGet(setter, &value);
-	accumulator = value;
+	// int setter = 0;
+	// setter = column + (10 * row);
+	// int value = 0;
+	// sc_memoryGet(setter, &value);
+	// accumulator = value;
+	accumulator++;
 	pa_resetTerm();
 }
+
+void pa_instCounterSet()
+{
+	// int setter = 0;
+	// setter = column + (10 * row);
+	// int value = 0;
+	// sc_memoryGet(setter, &value);
+	// accumulator = value;
+	instruction_counter = column + (10 * row);
+	pa_resetTerm();
+}
+
 
 void pa_press1()
 {

@@ -3,8 +3,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MEMORY_BORDER_ERROR 1;
-#define WRONG_COMMAND 2;
+#define MEMORY_BORDER_ERROR 0
+#define WRONG_COMMAND 0
+#define P 0	// переполнение при выполнение операции
+#define O 0	// ошибка деления на 0
+#define T 0	// игнорирование тактовых импульсов
+
+
 const char *filename = "file.txt";
 
 const int memSize = 100;

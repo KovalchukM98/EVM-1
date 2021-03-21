@@ -29,7 +29,7 @@ void reset_sig_handler(int signo){
 	
 	sc_memoryInit();
 	sc_regInit();
-	row = column = ind = 0;
+	row = column = ind = accumulator = 0;
 	pa_resetTerm();
 }
 
