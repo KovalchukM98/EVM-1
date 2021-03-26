@@ -104,7 +104,7 @@ int printBoxInstructionCounter()
 {
 	bc_box(4, 61 + 1, 3, 22);
 	mt_gotoXY(4, 63);
-	printf(" instructionCounter ");
+	printf(" instructionCnt ");
 	mt_gotoXY(5, 70);
 	printf("+%.4X", instruction_counter);
 	mt_gotoXY(13, 1);

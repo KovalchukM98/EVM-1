@@ -8,6 +8,7 @@
 
 int main()
 {
+  rk_mytermsave();
     set_reset_sig();
     // int *arr = sc_memoryInit();
     // int *command = new int;
@@ -98,7 +99,8 @@ int main()
           break;
         case QUIT:
           printf("\n\n");
-          return 0;
+          break;
+        case UNREGISTERED_KEY:
           break;
       }
     }
@@ -107,5 +109,8 @@ int main()
     // sleep(60);  //прерывается сигналом
     // sleep(10);
     // printf("сплю\n");
+    //rk_mytermregime(1, 0, 0, 0, 0);
+    //rk_mytermregime(0, 0, 0, 0, 0);
+    rk_mytermrestore();
     return 0;
 }

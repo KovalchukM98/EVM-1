@@ -29,7 +29,8 @@ enum keys{
 	LOAD,
 	SAVE,
 	KEY_i,
-	KEY_1
+	KEY_1,
+	UNREGISTERED_KEY,
 };
 
 int rk_mytermsave(void) // запись в termios структуру
@@ -52,7 +53,7 @@ int rk_mytermrestore(void)
 
 int rk_mytermregime (int regime, int vtime, int vmin, int echo, int sigint){
 	struct termios new_settings;
-	rk_mytermsave();
+	//rk_mytermsave();
 	new_settings = savetty;
 
 	if (regime == 1) {
@@ -105,7 +106,6 @@ int rk_readkey (enum keys *key){
 		*key = KEY_LEFT;
 		
 	} else if(c[0] == 'q'){
-		
 		*key = QUIT;
 	} else if(c[0] == 's'){
 		*key = SAVE;
@@ -120,6 +120,8 @@ int rk_readkey (enum keys *key){
 		
 	} else if (c[0] == '1') {
 		*key = KEY_1;
+	} else{
+		*key = UNREGISTERED_KEY;
 	}
 	rk_mytermregime(0, 0, 1, 1, 1);
 	free(c);
