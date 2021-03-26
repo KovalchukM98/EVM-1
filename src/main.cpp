@@ -10,6 +10,7 @@ int main()
 {
   rk_mytermsave();
     set_reset_sig();
+    sc_regSet(T_FLAG, 1);
     // int *arr = sc_memoryInit();
     // int *command = new int;
     // int *sc_command = new int;

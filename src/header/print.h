@@ -125,17 +125,21 @@ int printBoxFlags()
 	mt_gotoXY(10, 69);
 	printf(" Flags ");
 	mt_gotoXY(13, 1);
-	int reg_p, reg_o, reg_m, reg_t, reg_e;
+	int reg_p = 0;
+	int reg_o = 0;
+	int reg_m = 0;
+	int reg_t = 0;
+	int reg_e = 0;
 
-	sc_regGet(P, &reg_p);
-	sc_regGet(O, &reg_o);
-	sc_regGet(MEMORY_BORDER_ERROR, &reg_m);
-	sc_regGet(T, &reg_t);
-	sc_regGet(WRONG_COMMAND, &reg_e);
+	sc_regGet(P_FLAG, &reg_p);
+	sc_regGet(O_FLAG, &reg_o);
+	sc_regGet(M_FLAG, &reg_m);
+	sc_regGet(T_FLAG, &reg_t);
+	sc_regGet(E_FLAG, &reg_e);
 
 	mt_gotoXY(11, 64);
 	//printf("P-%d O-%d M-%d T-%d E-%d", reg_p, reg_o, reg_m, reg_t, reg_e);
-	printf("P-%d O-%d M-%d T-%d E-%d", 0, 0, 0, 0, 0);
+	printf("P-%d O-%d M-%d T-%d E-%d", reg_p, reg_o, reg_m, reg_t, reg_e);
 
 	return 0;
 }
