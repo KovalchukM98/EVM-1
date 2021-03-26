@@ -69,7 +69,7 @@ int main()
           pa_memset();
           break;
         case F6:
-          printf("f6");
+          pa_instCounterSet();
           break;
         case KEY_UP:
           pa_moveUp();
@@ -85,9 +85,11 @@ int main()
           break;
         case SAVE:
           sc_memorySave(filename);
+          pa_resetTerm();
           break;
         case LOAD:
       		sc_memoryLoad(filename);
+          pa_resetTerm();
           break;
         case KEY_1:
       		pa_press1();
