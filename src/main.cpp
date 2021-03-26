@@ -61,8 +61,6 @@ int main()
     // enum keys *key = new enum keys;
     // set_my_alarm(1);
     enum keys key;
-    row = 0;
-    column = 0;
     pa_resetTerm();
     while (key != QUIT) {
 		  rk_readkey(&key);
@@ -104,13 +102,6 @@ int main()
           break;
       }
     }
-    // sc_regSet(timer_ignore_flag, 1);
-    
-    // sleep(60);  //прерывается сигналом
-    // sleep(10);
-    // printf("сплю\n");
-    //rk_mytermregime(1, 0, 0, 0, 0);
-    //rk_mytermregime(0, 0, 0, 0, 0);
     rk_mytermrestore();
     return 0;
 }

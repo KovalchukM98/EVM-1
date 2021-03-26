@@ -1,10 +1,9 @@
 #pragma once
 
-#include "myTerm.h"
 #include "myBigChars.h"
 #include <stdio.h>
 
-int row, column , ind, accumulator;
+int row, column , ind;
 
 static int bcint0 [2] = {1717992960, 8283750};
 static int bcint1 [2] = {471341056, 3938328};

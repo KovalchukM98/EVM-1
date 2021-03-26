@@ -7,10 +7,12 @@
 #define WRONG_COMMAND 2;
 const char *filename = "file.txt";
 
-const int memSize = 100;
+static const int memSize = 100;
 static int arr[memSize];
 static int registr;
 static int instruction_counter = 0;
+static int accumulator = 0;
+
 int error_flag = 0;
 int timer_ignore_flag = 1;
 

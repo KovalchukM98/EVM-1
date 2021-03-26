@@ -12,9 +12,7 @@
 
 //#define KEY_F5 "\E[15~"
 //#define KEY_F6 "\E[17~" 
-struct termios terminal_settings;
-struct termios savetty;
-struct termios tty;
+static struct termios terminal_settings;
 
 int number_of_mem_cell;
 
@@ -53,8 +51,7 @@ int rk_mytermrestore(void)
 
 int rk_mytermregime (int regime, int vtime, int vmin, int echo, int sigint){
 	struct termios new_settings;
-	//rk_mytermsave();
-	new_settings = savetty;
+	new_settings = terminal_settings;
 
 	if (regime == 1) {
 		new_settings.c_lflag &= (~ICANON);
@@ -127,5 +124,3 @@ int rk_readkey (enum keys *key){
 	free(c);
 	return 0;
 }
-
-
