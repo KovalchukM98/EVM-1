@@ -3,22 +3,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MEMORY_BORDER_ERROR 0
-#define WRONG_COMMAND 0
-#define P 0	// переполнение при выполнение операции
-#define O 0	// ошибка деления на 0
-#define T 0	// игнорирование тактовых импульсов
-
+#define P_FLAG 0	// переполнение при выполнение операции
+#define O_FLAG 1	// ошибка деления на 0
+#define M_FLAG 2    // ошибка выхода за границы памяти
+#define T_FLAG 3	// игнорирование тактовых импульсов
+#define E_FLAG 4    // указана неверная команда
 
 const char *filename = "file.txt";
 
-const int memSize = 100;
+static const int memSize = 100;
 static int arr[memSize];
-static int registr;
+static int registr = 0;
 static int instruction_counter = 0;
-int error_flag = 0;
-int timer_ignore_flag = 1;
-
+static int accumulator = 0;
 
 bool isCommand(int command) {
     if(command != (0x10 || 0x11 || 0x20 || 0x21 || 0x30 || 0x31 || 0x32 || 0x33 || 0x40 || 0x41 || 0x42 || 0x43 ||
@@ -51,11 +48,11 @@ int sc_regSet(int flag_num, int value)
 }
 
 int sc_regGet(int flag_num, int* value){
-    if(flag_num > 1 || flag_num < 0) return 1;
-    int *flag = new int;
-    *flag = (registr >> flag_num) & 1;
+    if(flag_num > 4 || flag_num < 0) return 1;
+    int flag;
+    flag = (registr >> flag_num) & 1;
     //std::cout << "\nFlag:" << *flag;
-    value = flag;
+    *value = flag;
     //std::cout << "\nValue:" << *value;
     return 0;
 }
@@ -72,7 +69,7 @@ int *sc_memoryInit()
 int sc_memorySet(int address, int value)
 {
     if(address >= memSize){
-        int error_flag = MEMORY_BORDER_ERROR;
+        int error_flag = M_FLAG;
         sc_regSet(error_flag,1);
         //std::cout << "memory size error(set)\n\n";
         return 1;
@@ -84,7 +81,7 @@ int sc_memorySet(int address, int value)
 int sc_memoryGet(int address, int* value)
 {
     if(address >= memSize){
-        int error_flag = MEMORY_BORDER_ERROR;
+        int error_flag = M_FLAG;
         sc_regSet(error_flag,1);
         //std::cout << "memory size error(get)\n\n";
         return 1;
@@ -113,7 +110,7 @@ int sc_memoryLoad(const char* filename)
 int sc_commandEncode(int command, int operand, int *value)
 {
 	if ((operand > 127 || operand < 0) && isCommand(command) &&(command > 127 || command < 0 )) {
-        int error_flag = WRONG_COMMAND;
+        int error_flag = E_FLAG;
         sc_regSet(error_flag,1);
         return 1;
 	}
@@ -130,7 +127,7 @@ int sc_commandDecode (int value, int * command, int * operand)
 {
     
 	if((value >> 14) != 0) {
-		int error_flag = WRONG_COMMAND;
+		int error_flag = E_FLAG;
         sc_regSet(error_flag,1);
         //std::cout << ((value >> 14) & 1) << " - Не является началом команды\n";
         return 1;

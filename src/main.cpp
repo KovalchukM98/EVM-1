@@ -8,7 +8,9 @@
 
 int main()
 {
+  rk_mytermsave();
     set_reset_sig();
+    sc_regSet(T_FLAG, 1);
     // int *arr = sc_memoryInit();
     // int *command = new int;
     // int *sc_command = new int;
@@ -60,8 +62,6 @@ int main()
     // enum keys *key = new enum keys;
     // set_my_alarm(1);
     enum keys key;
-    row = 0;
-    column = 0;
     pa_resetTerm();
     while (key != QUIT) {
 		  rk_readkey(&key);
@@ -100,14 +100,11 @@ int main()
           break;
         case QUIT:
           printf("\n\n");
-          return 0;
+          break;
+        case UNREGISTERED_KEY:
           break;
       }
     }
-    // sc_regSet(timer_ignore_flag, 1);
-    
-    // sleep(60);  //прерывается сигналом
-    // sleep(10);
-    // printf("сплю\n");
+    rk_mytermrestore();
     return 0;
 }

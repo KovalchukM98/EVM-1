@@ -29,13 +29,13 @@ void reset_sig_handler(int signo){
 	
 	sc_memoryInit();
 	sc_regInit();
-	row = column = ind = accumulator = 0;
+	row = column = ind = 0;
 	pa_resetTerm();
 }
 
 void sig_handler(int signo){
 	int flag;
-	sc_regGet(timer_ignore_flag, &flag);
+	sc_regGet(T_FLAG, &flag);
 	if(flag == 0) {
 		//printf("таймер отключен\n"); //ничего не должно происходить
 		return;

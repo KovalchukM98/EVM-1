@@ -55,7 +55,7 @@ int bc_box(int x1, int y1, int x2, int y2)
 		mt_gotoXY(x1, i);
 		bc_printA(LINE_HORIZONTAL);
 	}
-
+	mt_gotoXY(x1, y1+y2-1);
 	bc_printA(CORNER_RIGHT_TOP);
 
 	for (int i = x1 + 1; i <  x1 + x2 - 1; i++) {
@@ -76,6 +76,7 @@ int bc_box(int x1, int y1, int x2, int y2)
 		bc_printA(LINE_HORIZONTAL);
 	}
 
+	mt_gotoXY(x1+x2-1, y1+y2-1);
 	bc_printA(CORNER_RIGHT_BOTTOM);
 	printf("\n");
 	
