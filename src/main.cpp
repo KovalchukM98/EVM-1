@@ -98,6 +98,13 @@ int main()
         case KEY_i:
           raise(SIGUSR1);
           break;
+        case KEY_t:
+          doComand();
+          pa_resetTerm();
+          break;
+        case KEY_r:
+          pa_resetTerm();
+          break;
         case QUIT:
           printf("\n\n");
           break;

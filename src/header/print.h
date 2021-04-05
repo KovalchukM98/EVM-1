@@ -3,7 +3,9 @@
 #include "myBigChars.h"
 #include <stdio.h>
 
-int row, column , ind;
+static int row;
+static int column;
+static int ind;
 
 static int bcint0 [2] = {1717992960, 8283750};
 static int bcint1 [2] = {471341056, 3938328};
@@ -137,7 +139,7 @@ int printBoxFlags()
 	sc_regGet(T_FLAG, &reg_t);
 	sc_regGet(E_FLAG, &reg_e);
 
-	mt_gotoXY(11, 64);
+	mt_gotoXY(11, 63);
 	//printf("P-%d O-%d M-%d T-%d E-%d", reg_p, reg_o, reg_m, reg_t, reg_e);
 	printf("P-%d O-%d M-%d T-%d E-%d", reg_p, reg_o, reg_m, reg_t, reg_e);
 

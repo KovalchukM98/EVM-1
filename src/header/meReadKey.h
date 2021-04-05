@@ -19,6 +19,8 @@ int number_of_mem_cell;
 enum keys{
 	F5 = 0,
 	F6,
+	KEY_t,
+	KEY_r,
 	KEY_UP,
 	KEY_DOWN,
 	KEY_LEFT,
@@ -117,6 +119,10 @@ int rk_readkey (enum keys *key){
 		
 	} else if (c[0] == '1') {
 		*key = KEY_1;
+	} else if(c[0] == 't'){
+		*key = KEY_t;
+	} else if(c[0] == 'r'){
+		*key = KEY_r;
 	} else{
 		*key = UNREGISTERED_KEY;
 	}
@@ -124,3 +130,127 @@ int rk_readkey (enum keys *key){
 	free(c);
 	return 0;
 }
+
+int READ(int operand){
+    int value;
+    mt_gotoXY(25, 1);
+    scanf("%d", &value);
+    arr[column + 10*row] = value;
+    return 0;
+}
+
+int WRITE(int operand){
+	mt_gotoXY(25, 1);
+	printf("%x", arr[column + 10*row]);
+	return 0;
+}
+
+int LOAD(int operand){
+	accumulator = arr[column + 10*row];
+	return 0;
+}
+
+int STORE(int operand){
+	arr[column + 10*row] = accumulator;
+	return 0;
+}
+
+int ADD(int operand){
+	accumulator += arr[column + 10*row];
+	return 0;
+}
+
+int SUB(int operand){
+	accumulator -= arr[column + 10*row];
+	return 0;
+}
+
+int DIVIDE(int operand){
+	accumulator /= arr[column + 10*row];
+	return 0;
+}
+
+int MUL(int operand){
+	accumulator *= arr[column + 10*row];
+	return 0;
+}
+
+int JUMP(int operand){
+	scanf("%d", ind);
+	column = ind % 10;
+	row = ind / 10;
+	return 0;
+}
+
+int JNEG(int operand){
+	if(accumulator < 0){
+		JUMP(operand);
+	}
+	return 0;
+}
+
+int JZ(int operand){
+	if(accumulator == 0){
+		JUMP(operand);
+	}
+	return 0;
+}
+
+int HALT(){
+	sc_regSet(T_FLAG, 1);
+	return 0;
+}
+
+int doComand(){
+    // int command;
+    // int operand;
+    // int value = arr[column + (10 * row)];
+    // printf("%s\n", "aaaaaaaaaaaaaa" );
+    // if(sc_commandDecode(value, &command, &operand) || !isCommand(command)){
+    //     return 1;
+    // }
+    // printf("%d\n", command );
+    // switch(command){
+    //     case 0x10: //read
+    //         READ(operand);
+    //         break;
+    //     case 0x11: //write
+    //     	WRITE(operand);
+    //     	break;
+    //     case 0x20: //load
+    //     	LOAD(operand);
+    //     	break;
+    //     case 0x21: //store
+    //     	STORE(operand);
+    //     	break;
+    //     case 0x30: //add
+    //     	ADD(operand);
+    //     	break;
+    //     case 0x31: //sub
+    //     	SUB(operand);
+    //     	break;
+    //     case 0x32: //divide
+    //     	DIVIDE(operand);
+    //     	break;
+    //     case 0x33: //mul
+    //     	MUL(operand);
+    //     	break;
+    //     case 0x40: //jump
+    //     	JUMP(operand);
+    //     	break;
+    //     case 0x41: //jneg
+    //     	JNEG(operand);
+    //     	break;
+    //     case 0x42: //jz
+    //     	JZ(operand);
+    //     	break;
+    //     case 0x43: // halt
+    //     	HALT(operand);
+    //     	break;
+    //     default:
+    //         break;
+    // }
+    READ(1);
+    return 0;
+}
+
