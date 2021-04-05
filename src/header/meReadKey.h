@@ -145,7 +145,7 @@ int WRITE(int operand){
 	return 0;
 }
 
-int LOAD(int operand){
+int LOAD_CMD(int operand){
 	accumulator = arr[column + 10*row];
 	return 0;
 }
@@ -176,7 +176,7 @@ int MUL(int operand){
 }
 
 int JUMP(int operand){
-	scanf("%d", ind);
+	scanf("%d", &ind);
 	column = ind % 10;
 	row = ind / 10;
 	return 0;
@@ -218,7 +218,7 @@ int doComand(){
     //     	WRITE(operand);
     //     	break;
     //     case 0x20: //load
-    //     	LOAD(operand);
+    //     	LOAD_CMD(operand);
     //     	break;
     //     case 0x21: //store
     //     	STORE(operand);

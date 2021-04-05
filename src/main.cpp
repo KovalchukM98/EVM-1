@@ -60,7 +60,9 @@ int main()
     // bc_getbigcharpos(bcintplus, 0, 1, value);
     // printf("%d\n", *value);
     // enum keys *key = new enum keys;
-    // set_my_alarm(1);
+    row = 9;
+    column = 8;
+    set_my_alarm(1);
     enum keys key;
     pa_resetTerm();
     while (key != QUIT) {
@@ -103,6 +105,7 @@ int main()
           pa_resetTerm();
           break;
         case KEY_r:
+          //run();
           pa_resetTerm();
           break;
         case QUIT:
