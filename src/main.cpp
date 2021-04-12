@@ -10,7 +10,6 @@ int main()
 {
   rk_mytermsave();
     set_reset_sig();
-    sc_regSet(T_FLAG, 1);
     // int *arr = sc_memoryInit();
     // int *command = new int;
     // int *sc_command = new int;
@@ -60,7 +59,7 @@ int main()
     // bc_getbigcharpos(bcintplus, 0, 1, value);
     // printf("%d\n", *value);
     // enum keys *key = new enum keys;
-    row = 9;
+    row = 8;
     column = 8;
     set_my_alarm(1);
     enum keys key;
@@ -105,8 +104,10 @@ int main()
           pa_resetTerm();
           break;
         case KEY_r:
-          //run();
+          // run();
+          sc_regSet(T_FLAG, 1);
           pa_resetTerm();
+          if(row > 9) sc_regSet(T_FLAG, 0);
           break;
         case QUIT:
           printf("\n\n");
