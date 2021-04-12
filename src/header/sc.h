@@ -50,7 +50,7 @@ int sc_regSet(int flag_num, int value)
 int sc_regGet(int flag_num, int* value){
     if(flag_num > 4 || flag_num < 0) return 1;
     int flag;
-    flag = (registr >> flag_num) & 1;
+    flag = (registr >> flag_num) & 0x1;
     //std::cout << "\nFlag:" << *flag;
     *value = flag;
     //std::cout << "\nValue:" << *value;

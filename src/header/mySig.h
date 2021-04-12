@@ -34,13 +34,29 @@ void reset_sig_handler(int signo){
 }
 
 void sig_handler(int signo){
-	int flag;
+	int flag = 0;
 	sc_regGet(T_FLAG, &flag);
+	printf("flag -  %d\n", flag );
 	if(flag == 0) {
-		//printf("таймер отключен\n"); //ничего не должно происходить
+		printf("таймер отключен\n"); //ничего не должно происходить
 		return;
 	}
 	instruction_counter++;
+	column++;
+	if(column == 10){
+		column = 0;
+		row++;
+	}
+	if(row > 9){
+		// row = 0;
+		// column = 0;
+		sc_regSet(M_FLAG, 1);
+		sc_regSet(T_FLAG, 0);
+		sc_regGet(T_FLAG, &flag);
+		
+		return;
+	}
+	doComand();
 	pa_resetTerm();
 	//printf("таймер работает\n");  // значение регистра instructionCounter увеличивалось на 1
 }
@@ -56,13 +72,12 @@ unsigned int set_my_alarm(unsigned int sec){
 
 	/* Запускаем таймер */
 	setitimer (ITIMER_REAL, &nval, &oval);
-	pause();
+	//pause();
 	return 0;
 }
 
 void set_reset_sig(){
 	signal (SIGUSR1, reset_sig_handler);
-
 }
 
 //int setitimer(int which, const struct itimerval *value, struct itimerval *ovalue);
