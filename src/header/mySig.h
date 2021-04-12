@@ -38,9 +38,12 @@ void sig_handler(int signo){
 	sc_regGet(T_FLAG, &flag);
 	printf("flag -  %d\n", flag );
 	if(flag == 0) {
-		printf("таймер отключен\n"); //ничего не должно происходить
+		//printf("таймер отключен\n"); //ничего не должно происходить
 		return;
 	}
+	pa_resetTerm();
+	doComand();
+	pa_resetTerm();
 	instruction_counter++;
 	column++;
 	if(column == 10){
@@ -48,16 +51,13 @@ void sig_handler(int signo){
 		row++;
 	}
 	if(row > 9){
-		// row = 0;
-		// column = 0;
-		sc_regSet(M_FLAG, 1);
+		row = 0;
+		column = 0;
 		sc_regSet(T_FLAG, 0);
-		sc_regGet(T_FLAG, &flag);
-		
-		return;
+		sc_regSet(M_FLAG, 1);
+		//sc_regGet(T_FLAG, &flag);
+		//printf("заканчиваем: %d\n", flag );
 	}
-	doComand();
-	pa_resetTerm();
 	//printf("таймер работает\n");  // значение регистра instructionCounter увеличивалось на 1
 }
 
