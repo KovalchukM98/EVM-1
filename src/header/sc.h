@@ -38,8 +38,18 @@ int sc_regSet(int flag_num, int value)
     // for(int i = 32; i >= 0; --i){
     //     std::cout << ((registr >> i) & 1) << " ";
     // }
-    if(value > 1 || value < 0) return 1;
-    registr |= value << flag_num;
+    if(value > 1 || value < 0){
+        return 1;
+    }
+    if(value == 1){
+        // printf("aa  %d %d\n", flag_num, value);
+        registr |= (value << flag_num);
+    }
+    else{
+        int flags = registr % (10 * (flag_num-1));
+        registr &= (value << flag_num);
+        registr &= flags;
+    }
     // std::cout << "\nRegistr under set:";
     // for(int i = 32; i > 0; --i){
     //     std::cout << ((registr >> i) & 1) << " ";
