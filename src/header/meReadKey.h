@@ -2,6 +2,7 @@
 
 #include "myTerm.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <sys/ioctl.h>
 #include <string.h>
@@ -207,6 +208,7 @@ int doComand(){
     // int value = arr[column + (10 * row)];
     // printf("%s\n", "aaaaaaaaaaaaaa" );
     // if(sc_commandDecode(value, &command, &operand) || !isCommand(command)){
+    // 	sc_regSet(E_FLAG, 1);
     //     return 1;
     // }
     // printf("%d\n", command );
@@ -254,3 +256,83 @@ int doComand(){
     return 0;
 }
 
+int Make_bin_comand(int adress, int command, int operand){
+	//привести в бинарный вид и загрузить в память
+	return 0;
+}
+
+int Get_comand_code(char *word, int size){
+	return 228;
+}
+
+int Assembler_parse(char* str){
+	int adress = 0;
+	//int command = 0;
+	int operand = 0;
+
+	//парсим адресс
+	char buf[2];
+	buf[0] = str[0];
+	buf[1] = str[1];
+	adress = atoi(buf);
+	if(adress > 99 || adress < 0){
+		return 1;
+	}
+
+	//парсим слово
+	int i = 2;
+	while(str[i] == ' '){
+		++i;
+	}
+	int j = i;
+	while(str[j] != ' '){
+		++j;
+	}
+	char *word = (char*)calloc(j-i, sizeof(char));
+	int cnt = 0;
+	while(i < j){
+		word[cnt] = str[i];
+		i++;
+		cnt++;
+	}
+	//command = Get_comand_code(word, cnt); //дописать свич со всеми возможными командами
+
+	//парсим операнд
+	char c;
+	while(str[i] == ' '){
+		++i;
+	}
+	while(str[i] != ';' && str[i] != ' ' && str[i] != '\t'){
+		c = str[i];
+		operand = operand*10 + atoi(&c);
+		i++;
+	}
+	printf("%d %s %d\n", adress, word, operand);
+	Make_bin_comand(adress, command, operand);
+	free(word);
+	return 0;
+}
+
+int Assembler_read(){
+	FILE* input;
+	input = fopen("test", "r");
+	if(input == NULL){
+		return 1;
+	}
+	char str[50];
+	int bufsize = 50;
+	int cnt = 0;
+	while(true){
+		fgets(str, bufsize, input);
+		//printf("%s", str);
+		if(Assembler_parse(str) != 0){
+			break;
+		}
+		cnt++;
+		if(feof(input) || cnt == 100){
+			break;
+		}
+	}
+	fclose(input);
+	return 0;
+}

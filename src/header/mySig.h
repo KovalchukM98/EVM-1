@@ -36,7 +36,7 @@ void reset_sig_handler(int signo){
 void sig_handler(int signo){
 	int flag = 0;
 	sc_regGet(T_FLAG, &flag);
-	printf("flag -  %d\n", flag );
+	//printf("flag -  %d\n", flag );
 	if(flag == 0) {
 		//printf("таймер отключен\n"); //ничего не должно происходить
 		return;
