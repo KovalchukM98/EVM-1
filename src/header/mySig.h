@@ -38,7 +38,6 @@ void sig_handler(int signo){
 	sc_regGet(T_FLAG, &flag);
 	//printf("flag -  %d\n", flag );
 	if(flag == 0) {
-		//printf("таймер отключен\n"); //ничего не должно происходить
 		return;
 	}
 	pa_resetTerm();
@@ -54,9 +53,8 @@ void sig_handler(int signo){
 		row = 0;
 		column = 0;
 		sc_regSet(T_FLAG, 0);
-		sc_regSet(M_FLAG, 1);
-		//sc_regGet(T_FLAG, &flag);
-		//printf("заканчиваем: %d\n", flag );
+		sc_regSet(M_FLAG, 1)
+		return;
 	}
 	//printf("таймер работает\n");  // значение регистра instructionCounter увеличивалось на 1
 }
