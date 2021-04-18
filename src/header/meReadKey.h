@@ -262,12 +262,25 @@ int Make_bin_comand(int adress, int command, int operand){
 }
 
 int Get_comand_code(char *word, int size){
-	return 228;
+	if (strcmp(word, "READ")== 0) return 0x10;
+    else if (strcmp(word, "WRITE")==0) return 0x11;
+    else if (strcmp(word, "LOAD")==0) return 0x20;
+    else if (strcmp(word, "STORE")==0) return 0x21;
+    else if (strcmp(word, "ADD")==0) return 0x30;
+    else if (strcmp(word, "SUB")==0) return 0x31;
+    else if (strcmp(word, "DIVIDE")==0) return 0x32;
+    else if (strcmp(word, "MUL")==0) return 0x33;
+    else if (strcmp(word, "JUMP")==0) return 0x40;
+    else if (strcmp(word, "JNEG")==0) return 0x41;
+    else if (strcmp(word, "JZ")==0) return 0x42;
+    else if (strcmp(word, "HALT")==0) return 0x43;
+    else if (strcmp(word, "JNP")==0) return 0x59;
+    return -1;
 }
 
 int Assembler_parse(char* str){
 	int adress = 0;
-	//int command = 0;
+	int command = 0;
 	int operand = 0;
 
 	//парсим адресс
@@ -295,7 +308,10 @@ int Assembler_parse(char* str){
 		i++;
 		cnt++;
 	}
-	//command = Get_comand_code(word, cnt); //дописать свич со всеми возможными командами
+	command = Get_comand_code(word, cnt);
+	if(command == -1){
+		return 2;
+	}
 
 	//парсим операнд
 	char c;

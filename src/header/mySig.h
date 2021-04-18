@@ -53,7 +53,7 @@ void sig_handler(int signo){
 		row = 0;
 		column = 0;
 		sc_regSet(T_FLAG, 0);
-		sc_regSet(M_FLAG, 1)
+		sc_regSet(M_FLAG, 1);
 		return;
 	}
 	//printf("таймер работает\n");  // значение регистра instructionCounter увеличивалось на 1
